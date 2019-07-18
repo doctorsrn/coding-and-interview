@@ -6,7 +6,7 @@ Created on Tue Apr 23 21:40:13 2019
 """
 
 #########################################
-#####      quickSort               ##### 
+#####      quickSort      1         ##### 
 #########################################
 def quickSort(arr, left, right):
     # 递归终止条件
@@ -38,6 +38,20 @@ def quickSort(arr, left, right):
 arr = [-1, 3, 0, 9, 10, 0]
 quickSort(arr, 0, len(arr)-1)
 print('quickSort:',arr)
+
+#########################################
+#####      quickSort   2            ##### 
+#########################################
+def quickSort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[0]
+    
+    small = [x for x in arr if x < pivot]
+    great = [x for x in arr if x > pivot]
+    mid = [x for x in arr if x == pivot]
+    return quickSort(small) + mid + quickSort(great)
 
 
 #########################################
