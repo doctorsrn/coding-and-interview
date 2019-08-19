@@ -71,3 +71,75 @@ public:
 	}
 };
 ```
+
+## 23.链表中环节点的检测
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(head == nullptr)
+            return nullptr;
+        
+        ListNode *slow = head->next;
+        if(slow == nullptr)
+            return nullptr;
+        
+        ListNode *fast = slow->next;
+        if(fast == nullptr)
+            return nullptr;
+        //countCycleNodes(slow);
+        int cycle_nodes_count = 0;
+        while(fast != nullptr && slow != nullptr)
+        {
+            if(fast == slow)
+            {
+                cycle_nodes_count = countCycleNodes(slow);
+                break;
+            }
+                
+            
+            slow = slow->next;
+            fast = fast->next;
+            if(fast != nullptr)
+                fast = fast->next;
+        }
+        if(cycle_nodes_count == 0)
+            return nullptr;
+        
+        slow = head;
+        fast = head;
+        while(cycle_nodes_count > 0)
+        {
+            fast = fast->next;
+            --cycle_nodes_count;
+        }
+        while(slow != fast)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        return slow;
+    }
+    
+    // 统计环中节点的个数
+    int countCycleNodes(const ListNode *node_in_cycle) {
+        ListNode *slow = node_in_cycle->next;
+        ListNode *fast = slow->next;
+        int count = 1;
+        while(slow != fast)
+        {
+            fast = fast->next;
+            ++count;
+        }
+        return count;
+    }
+};
+```
