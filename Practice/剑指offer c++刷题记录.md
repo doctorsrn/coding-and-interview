@@ -144,3 +144,61 @@ public:
 };
 ```
 
+## 3. 从尾到头打印链表
+使用栈记录链表，然后从尾到头打印
+```c++
+/**
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head) {
+        std::vector<int> res;
+        if(head != nullptr)
+        {
+            std::stack<ListNode*> nodes;
+            ListNode* node = head;
+            while(node != nullptr)
+            {
+                nodes.push(node);
+                node = node->next;
+            }
+            while(!nodes.empty())
+            {
+                node = nodes.top();
+                res.push_back(node->val);
+                nodes.pop();
+            }
+        }
+        return res;
+    }
+};
+```
+
+顺序遍历并将值存入数组，然后倒序输出数组
+```c++
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head) {
+        std::vector<int> res;
+        if(head != nullptr)
+        {
+            std::stack<ListNode*> nodes;
+            ListNode* node = head;
+            while(node != nullptr)
+            {
+                res.push_back(node->val);
+                node = node->next;
+            }
+            
+        }
+        return vector<int>(res.rbegin(), res.rend());  // 倒序迭代器
+    }
+};
+```
