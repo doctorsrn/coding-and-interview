@@ -202,3 +202,47 @@ public:
     }
 };
 ```
+
+## 4. 重建二叉树
+```c++
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        //TreeNode* root;
+        if((pre.size() == vin.size()) && (pre.size() > 0))
+        {
+            //root->val = *pre.begin();
+            //return recursion_construct(pre, vin);
+            auto len = pre.size();
+            return dfs(pre, 0, len - 1, vin, 0, len - 1);
+                
+        }
+        return nullptr;
+    }
+
+    TreeNode* dfs(vector<int>& preorder, int plo, int phi, vector<int>& inorder, int ilo, int ihi) {
+        if(phi < plo) return nullptr;
+        TreeNode *ans = new TreeNode(preorder[plo]);
+        if(plo == phi) return ans;
+        int lsize = 0;
+
+        for(auto i = inorder.begin() + ilo ; i != inorder.end(); ++i) {
+            if(*i == preorder[plo]) break;
+            lsize++;
+        }
+
+        ans->left = dfs(preorder, plo + 1, plo + lsize, inorder, ilo, ilo + lsize - 1);
+        ans->right = dfs(preorder, plo + lsize + 1, phi, inorder, ilo + lsize + 1, ihi);
+        return ans;
+    }
+};
+```
