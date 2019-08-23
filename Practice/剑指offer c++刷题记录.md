@@ -268,3 +268,22 @@ public:
     }
 };
 ```
+
+## 6.跳台阶
+```c++
+class Solution {
+public:
+    int jumpFloor(int number) {
+        if(number <= 2){
+            return number;
+        }
+        int pre2 = 1, pre1 = 2;
+        for (int i = 3; i <= number; i++){
+            int cur = pre2 + pre1;
+            pre2 = pre1;
+            pre1 = cur;
+        }
+        return pre1;
+    }
+};
+```
