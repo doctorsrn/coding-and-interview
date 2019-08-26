@@ -72,78 +72,6 @@ public:
 };
 ```
 
-## 23.链表中环节点的检测
-```c++
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode *detectCycle(ListNode *head) {
-        if(head == nullptr)
-            return nullptr;
-        
-        ListNode *slow = head->next;
-        if(slow == nullptr)
-            return nullptr;
-        
-        ListNode *fast = slow->next;
-        if(fast == nullptr)
-            return nullptr;
-        //countCycleNodes(slow);
-        int cycle_nodes_count = 0;
-        while(fast != nullptr && slow != nullptr)
-        {
-            if(fast == slow)
-            {
-                cycle_nodes_count = countCycleNodes(slow);
-                break;
-            }
-                
-            
-            slow = slow->next;
-            fast = fast->next;
-            if(fast != nullptr)
-                fast = fast->next;
-        }
-        if(cycle_nodes_count == 0)
-            return nullptr;
-        
-        slow = head;
-        fast = head;
-        while(cycle_nodes_count > 0)
-        {
-            fast = fast->next;
-            --cycle_nodes_count;
-        }
-        while(slow != fast)
-        {
-            slow = slow->next;
-            fast = fast->next;
-        }
-        return slow;
-    }
-    
-    // 统计环中节点的个数
-    int countCycleNodes(const ListNode *node_in_cycle) {
-        ListNode *slow = node_in_cycle->next;
-        ListNode *fast = slow->next;
-        int count = 1;
-        while(slow != fast)
-        {
-            fast = fast->next;
-            ++count;
-        }
-        return count;
-    }
-};
-```
-
 ## 3. 从尾到头打印链表
 使用栈记录链表，然后从尾到头打印
 ```c++
@@ -247,7 +175,71 @@ public:
 };
 ```
 
-## 5.斐波那契数列
+## 5.两个栈实现队列的push和pop操作
+```c++
+class Solution
+{
+public:
+    void push(int node) {
+        stack1.push(node);
+    }
+
+    int pop() {
+        if(stack2.empty())
+        {
+            if(!stack1.empty())
+            {
+                while(!stack1.empty())
+                {
+                    stack2.push(stack1.top());
+                    stack1.pop();
+                }
+            }
+            else
+                return 0;
+        }
+        
+        int res = stack2.top();
+        stack2.pop();
+        return res;
+    }
+
+private:
+    stack<int> stack1;
+    stack<int> stack2;
+};
+```
+
+## 6.旋转数组最小数字
+```c++
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) {
+        if(rotateArray.empty())
+            return 0;
+        
+        int index1 = 0;
+        int index2 = rotateArray.size()-1;
+        int mid_index = index1;
+        while(rotateArray[index1] >= rotateArray[index2])
+        {
+            if((index2 - index1) == 1)
+            {
+                mid_index = index2;
+                break;
+            }
+            mid_index = (index1 + index2) / 2;
+            if(rotateArray[mid_index] >= rotateArray[index1])
+                index1 = mid_index;
+            else //if(rotateArray[mid_index] <= rotateArray[index2])
+                index2 = mid_index;
+        }
+        return rotateArray[mid_index];
+    }
+};
+```
+
+## 7.斐波那契数列
 ```c++
 class Solution {
 public:
@@ -269,7 +261,7 @@ public:
 };
 ```
 
-## 6.跳台阶
+## 8.跳台阶
 ```c++
 class Solution {
 public:
@@ -287,5 +279,119 @@ public:
     }
 };
 ```
+
+## 9.变态跳台阶
+定义$f(n)$表示跳上第n个台阶的跳法，则有$f(0)=0,f(1)=1,f(2)=2,f(n)=1+f(n-1)+f(n-2)+\cdots+f(1)$，推出$f(n-1)=1+f(n-2)+f(n-2)+\cdots+f(1)$,两式相减的$f(n)-f(n-1)=f(n-1)$，则有$f(n)=2f(n-1)$，即$f(n)$为等比数列满足$f(n)=2^{n-1}$，进一步可求$f(n)=1++f(n-1)+f(n-2)+\cdots+f(1)=2^{n-1}$.
+```c++
+class Solution {
+public:
+    int jumpFloorII(int number) {
+        if(number < 1)
+            return number;
+        int res = 1;
+        for(int i=1; i<number;++i)
+        {
+            res *= 2;
+        }
+        return res;
+    }
+};
+```
+
+## 10.矩形覆盖问题
+```c++
+class Solution {
+public:
+    int rectCover(int number) {
+        if(number<3)
+            return number;
+        int pre=2, prepre=1;
+        int res = 0;
+        for(int i=2;i<number;++i)
+        {
+            res = pre+prepre;
+            prepre = pre;
+            pre = res;
+        }
+        return res;
+    }
+};
+```
+
+
+
+## 23.链表中环节点的检测
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(head == nullptr)
+            return nullptr;
+        
+        ListNode *slow = head->next;
+        if(slow == nullptr)
+            return nullptr;
+        
+        ListNode *fast = slow->next;
+        if(fast == nullptr)
+            return nullptr;
+        //countCycleNodes(slow);
+        int cycle_nodes_count = 0;
+        while(fast != nullptr && slow != nullptr)
+        {
+            if(fast == slow)
+            {
+                cycle_nodes_count = countCycleNodes(slow);
+                break;
+            }
+                
+            
+            slow = slow->next;
+            fast = fast->next;
+            if(fast != nullptr)
+                fast = fast->next;
+        }
+        if(cycle_nodes_count == 0)
+            return nullptr;
+        
+        slow = head;
+        fast = head;
+        while(cycle_nodes_count > 0)
+        {
+            fast = fast->next;
+            --cycle_nodes_count;
+        }
+        while(slow != fast)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        return slow;
+    }
+    
+    // 统计环中节点的个数
+    int countCycleNodes(const ListNode *node_in_cycle) {
+        ListNode *slow = node_in_cycle->next;
+        ListNode *fast = slow->next;
+        int count = 1;
+        while(slow != fast)
+        {
+            fast = fast->next;
+            ++count;
+        }
+        return count;
+    }
+};
+```
+
+
 
 ## 7.约瑟夫环问题
