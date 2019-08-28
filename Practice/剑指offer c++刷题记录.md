@@ -395,3 +395,9 @@ public:
 
 
 ## 7.约瑟夫环问题
+$$
+f(i,m) = \left\{\begin{matrix}
+0, & i=1\\ 
+(f(i-1,m)+m)\%i, & i>1
+\end{matrix}\right.
+$$
