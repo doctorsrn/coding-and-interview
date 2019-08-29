@@ -401,3 +401,24 @@ f(i,m) = \left\{\begin{matrix}
 (f(i-1,m)+m)\%i, & i>1
 \end{matrix}\right.
 $$
+
+
+## 24.数组的逆序
+方法一：暴力法时间复杂度太大，无法通过。
+```c++
+class Solution {
+public:
+    int InversePairs(vector<int> data) {
+        if(!data.empty())
+        {
+            int counter = 0;
+            for(int i = 0; i < data.size()-1; ++i)
+                for(int j = i+1; j < data.size(); ++j)
+                {
+                    if(data[j] < data[i]) counter += 1;
+                }
+            return counter;
+        }
+    }
+};
+```
