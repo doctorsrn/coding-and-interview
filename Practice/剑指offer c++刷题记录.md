@@ -403,7 +403,7 @@ f(i,m) = \left\{\begin{matrix}
 $$
 
 
-## 24.数组的逆序
+## 24.数组中的逆序对
 方法一：暴力法时间复杂度太大，无法通过。
 ```c++
 class Solution {
@@ -417,8 +417,62 @@ public:
                 {
                     if(data[j] < data[i]) counter += 1;
                 }
-            return counter;
+            return counter%1000000007;
         }
+    }
+};
+```
+
+方法二：基于归并思想的解法$O(nlogn)$
+```c++
+class Solution {
+public:
+    int InversePairs(vector<int> data) {
+        if(data.size() > 1)
+        {
+            vector<int> copy;
+            for(auto i : data)
+                copy.push_back(i);
+            long long count = InversePairsCore(data, copy, 0, data.size()-1);
+            return count%1000000007;
+        }
+        else
+            return 0;
+    }
+
+    long long InversePairsCore(vector<int> &data, vector<int> &copy, int start, int end)
+    {
+        if(start == end)
+        {
+            copy[start] = data[start];
+            return 0;
+        }
+        int length = (end - start) / 2;
+        long long count_left = InversePairsCore(copy, data, start, start+length);
+        long long count_right = InversePairsCore(copy, data, start+length+1, end);
+
+        //初始化双指针
+        int i = start+length;
+        int j = end;
+        int indexcopy=end;
+        long long count=0;
+        while(i >= start && j >= start+length+1)
+        {
+            if(data[i] > data[j])
+            {
+                copy[indexcopy--] = data[i--];
+                count += j - (start + length);
+            }
+            else
+                copy[indexcopy--] = data[j--];
+        }
+
+
+       for(;i>=start;i--)
+           copy[indexcopy--]=data[i];
+       for(;j>=start+length+1;j--)
+           copy[indexcopy--]=data[j];
+        return count_left + count_right + count;
     }
 };
 ```
