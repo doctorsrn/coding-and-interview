@@ -318,6 +318,48 @@ public:
 };
 ```
 
+## 11.二进制中1的个数
+方法一：暴力法
+```c++
+class Solution {
+public:
+     int  NumberOf1(int n) {
+         int count = 0;
+         int flag = 1;
+         while(flag)
+         {
+             if(n & flag)
+                 count += 1;
+             flag <<= 1;
+         }
+         
+         return count;
+     }
+};
+```
+
+方法二：取巧法，n&(n-1)
+```c++
+class Solution {
+public:
+     int  NumberOf1(int n) {
+         int count = 0;
+         int flag = 1;
+         while(n)
+         {
+             ++count;
+             n = n & (n-1);
+         }
+         
+         return count;
+     }
+};
+```
+
+## 12.数值的整数次方
+方法一:
+
+
 
 
 ## 23.链表中环节点的检测
@@ -467,7 +509,7 @@ public:
                 copy[indexcopy--] = data[j--];
         }
 
-
+        //将剩余元素追加至copy
        for(;i>=start;i--)
            copy[indexcopy--]=data[i];
        for(;j>=start+length+1;j--)
