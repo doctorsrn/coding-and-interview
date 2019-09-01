@@ -357,12 +357,92 @@ public:
 ```
 
 ## 12.数值的整数次方
-方法一:
+方法一: 暴力法
 ```c++
 class Solution {
 public:
     double Power(double base, int exponent) {
-    if(equal(base, 0.0) && 
+        if(equal(base, 0.0))
+            return 0;
+        if(exponent == 0)
+            return 1;
+        
+        if(exponent > 0)
+            return power_core(base, exponent);
+        else
+            return 1 / power_core(base, exponent);
+    }
+    
+    
+    int equal(double a, double b, double epision = 0.00000000001)
+    {
+        if(abs(a-b) < epision)
+            return 1;
+        else
+            return 0;
+    }
+    
+    double power_core(double b, int e)
+    {
+        double res = 1.0;
+        while(e!=0)
+        {
+            res *= b;
+            --e;
+        }
+        return res;
+    }
+};
+```
+
+方法二：递归高效法
+```c++
+class Solution {
+public:
+    double Power(double base, int exponent) {
+        if(equal(base, 0.0))
+            return 0;
+        if(exponent == 0)
+            return 1;
+        
+        if(exponent > 0)
+            return power_core_recursion(base, exponent);
+        else
+            return 1 / power_core_recursion(base, -exponent);
+    }
+    
+    
+    int equal(double a, double b, double epision = 0.0000001)
+    {
+        if(abs(a-b) < epision)
+            return 1;
+        else
+            return 0;
+    }
+    
+    double power_core(double b, int e)
+    {
+        double res = 1.0;
+        while(e!=0)
+        {
+            res *= b;
+            --e;
+        }
+        return res;
+    }
+    double power_core_recursion(double b, int e)
+    {
+        if(e == 0)
+            return 1;
+        if(e == 1)
+            return b;
+        double res = power_core_recursion(b, e>>1);
+        if((e&0x1) == 0)
+        {
+            return res*res;
+        }
+        else
+            return res*res*b;
     }
 };
 ```
