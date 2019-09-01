@@ -358,8 +358,14 @@ public:
 
 ## 12.数值的整数次方
 方法一:
-
-
+```c++
+class Solution {
+public:
+    double Power(double base, int exponent) {
+    if(equal(base, 0.0) && 
+    }
+};
+```
 
 
 ## 23.链表中环节点的检测
