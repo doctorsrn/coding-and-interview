@@ -103,7 +103,7 @@ arr = [2,7,9,-2,4,5,2,10,0]
 shellSort(arr)
         
 
-# 解决递归函数的装饰器会多次打印的问题，在嵌套一个函数就可以
+# 解决递归函数的装饰器会多次打印的问题，再嵌套一个函数就可以
 @logit
 def quickSort(arr):
     def _quickSort(arr):
