@@ -447,6 +447,33 @@ public:
 };
 ```
 
+## 13.调整数组顺序使奇数位于偶数前面
+方法：借助额外的空间实现，空间复杂度$O(n)$
+```c++
+class Solution {
+public:
+    void reOrderArray(vector<int> &array) {
+        if(!array.empty())
+        {
+            vector<int> odd;
+            vector<int> even;
+            for(auto n : array)
+            {
+                if((n&0x1) == 1)
+                    odd.push_back(n);
+                else
+                    even.push_back(n);
+            }
+            odd.insert(odd.end(), even.begin(), even.end());
+            
+            array.swap(odd); //array = odd;
+        }
+    }
+};
+```
+
+
+
 
 ## 23.链表中环节点的检测
 ```c++
