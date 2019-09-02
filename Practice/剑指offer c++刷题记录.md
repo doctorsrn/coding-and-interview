@@ -472,6 +472,43 @@ public:
 };
 ```
 
+## 14. 链表中的第k个节点
+方法：快慢指针法
+```c++
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        ListNode* fast = pListHead;
+        ListNode* slow = pListHead;
+        int count = 0;
+        while(fast != NULL)
+        {
+            fast = fast->next;
+            ++count;
+            if(count == k)
+                break;
+        }
+        //判断K是否大于链表长度
+        if(count != k)
+            return NULL;
+        
+        while(fast != NULL)
+        {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+};
+```
 
 
 
