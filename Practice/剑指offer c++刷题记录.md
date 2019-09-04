@@ -510,6 +510,41 @@ public:
 };
 ```
 
+## 15. 翻转链表
+方法：递归法或基于栈的迭代法
+```c++
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        if(pHead != nullptr)
+            return recursion_core(pHead);
+        else
+            return nullptr;
+    }
+    ListNode* recursion_core(ListNode* pHead)
+    {
+        if(pHead->next == nullptr)
+            return pHead;
+        
+        ListNode* temp = pHead->next;
+        ListNode* new_pHead = recursion_core(pHead->next);  # 递归得到尾节点
+        pHead->next = nullptr; # 记得将每个节点next指针置为nullptr，否则链表将成为一个环
+        temp->next = pHead;
+        
+        return new_pHead;
+    }   
+};
+```
+
+## 
 
 
 ## 23.链表中环节点的检测

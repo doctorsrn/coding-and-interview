@@ -19,3 +19,10 @@ https://www.runoob.com/python/python-reg-expressions.html
 
 从字符串中提取整数：`re.findall(r"\d+", str)`，从字符串中提取浮点数`re.findall(r"\d+\.?\d*", str)`
 
+## 3. Python 缓存操作
+```python
+import functools
+@functools.lru_cache(None)
+```
+当有的题内存溢出时，可以使用这个骚操作。
+
