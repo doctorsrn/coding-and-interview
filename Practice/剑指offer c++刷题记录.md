@@ -544,7 +544,46 @@ public:
 };
 ```
 
-## 
+## 16. 合并两个有序链表
+方法1：递归法pHead->next = min(pHead->next, pHead1)
+方法2：将一个链表插入至另一个链表
+```c++
+//递归法
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
+    {
+        if(pHead1 == nullptr)
+            return pHead2;
+        if(pHead2 == nullptr)
+            return pHead1;
+        
+        if(pHead1->val < pHead2->val)
+        {
+            pHead1->next = Merge(pHead1->next, pHead2);
+            return pHead1;
+        }
+            
+        else
+        {
+            pHead2->next = Merge(pHead2->next, pHead1);
+            return pHead2;
+        }
+    }
+    
+};
+```
+
+## 17. 树的子结构
+
 
 
 ## 23.链表中环节点的检测

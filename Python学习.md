@@ -1,4 +1,6 @@
 # Python知识点学习记录
++ https://www.cnblogs.com/zhaodafa/p/9667045.html#_label0_59
++ https://baijiahao.baidu.com/s?id=1607651363840614527&wfr=spider&for=pc
 
 ## 1. Python的垃圾回收处理机制
 https://www.jianshu.com/p/1e375fb40506
