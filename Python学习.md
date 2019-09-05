@@ -25,4 +25,8 @@ import functools
 @functools.lru_cache(None)
 ```
 当有的题内存溢出时，可以使用这个骚操作。
+但是当递归函数传入的参数为list时，会报错“TypeError: unhashable type: 'list'”，[报错原因是](https://stackoverflow.com/questions/49210801/python3-pass-lists-to-function-with-functools-lru-cache)list属于可变类型，缓存无法确定对那些值进行缓存。解决这个问题的一种方法是，在将列表传递给缓存函数之前将列表转换为元组。
+
+## 4. Python functools cmp_to_key操作
+在使用sorted函数时，可以自定义key，但是自定义cmp函数就无法直接传入，这时可以使用`cmp_to_key`，将自定义的cmp函数转换为key，传入sorted函数中进行排序。
 
