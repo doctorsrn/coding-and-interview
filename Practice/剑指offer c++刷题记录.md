@@ -583,7 +583,83 @@ public:
 ```
 
 ## 17. 树的子结构
+方法：分为两步，第一步递归遍历树，第二步遍历的同时递归判断是否为子树。递归遍历树可以使用VLR前序遍历。
+```c++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
+    {
+        if(pRoot2 == nullptr || pRoot1 == nullptr)
+            return false;
+        
+        if(isEqual(pRoot1, pRoot2))
+            return true;
+        if(pRoot1->left != nullptr)
+        {
+            if(HasSubtree(pRoot1->left, pRoot2))
+                return true;
+        }
+            
+        if(pRoot1->right != nullptr)
+        {
+            if(HasSubtree(pRoot1->right, pRoot2))
+                return true;
+        }
+            
+        return false;
+    }
+    bool isEqual(TreeNode* pRoot1, TreeNode* pRoot2)
+    {
+        if(pRoot2 == nullptr)
+            return true;
+        if(pRoot1 == nullptr)
+            return false;
+        
+        if(pRoot1->val == pRoot2->val)
+            return isEqual(pRoot1->left, pRoot2->left) && isEqual(pRoot1->right, pRoot2->right);
+        else
+            return false;
+    }
+};
+```
 
+## 18. 二叉树的镜像
+方法：VLR递归遍历进行左右交换
+```c++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        if(pRoot == nullptr or (pRoot->left == nullptr && pRoot->right == nullptr))
+            return;
+        
+        TreeNode* left = pRoot->left;
+        TreeNode* right = pRoot->right;
+        pRoot->left = right;
+        pRoot->right = left;
+        Mirror(pRoot->left);
+        Mirror(pRoot->right);
+
+    }
+};
+```
 
 
 ## 23.链表中环节点的检测
