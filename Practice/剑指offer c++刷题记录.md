@@ -662,6 +662,123 @@ public:
 ```
 
 ## 19. 顺时针打印矩阵
+注意边界值
+```c++
+class Solution {
+public:
+    vector<int> printMatrix(vector<vector<int> > matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        
+        int start = 0;
+        vector<int> res;
+        while(row > start * 2 && col > start *2)
+        {
+            Print(matrix, row, col, start, res);
+            ++start; 
+        }
+        return res;
+    }
+    void Print(const vector<vector<int> > & matrix, int row, int col, int start, vector<int>& res)
+    {
+        int end_x = col - start - 1;
+        int end_y = row - start - 1;
+        
+        //print row
+        for(int i = start; i <= end_x; ++i)
+            res.push_back(matrix[start][i]);
+        
+        if(start < end_y)
+        {
+            for(int i = start+1; i <= end_y; ++i)
+                res.push_back(matrix[i][end_x]);
+        }
+        
+        if(start < end_x && start < end_y)
+        {
+            for(int i = end_x-1; i >= start; --i)
+                res.push_back(matrix[end_y][i]);
+        }
+        
+        if(start < end_y && start < end_x)
+        {
+            for(int i = end_y-1; i > start; --i)
+                res.push_back(matrix[i][start]);
+        }
+    }
+};
+```
+
+## 20. 对称二叉树
+```c++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    bool isSymmetrical(TreeNode* pRoot)
+    {
+        return isSymmertrical(pRoot, pRoot);
+    }
+    bool isSymmertrical(TreeNode* left, TreeNode* right)
+    {
+        if(left == right && left == nullptr)
+            return true;
+        if(left == nullptr || right == nullptr)
+            return false;
+        
+        if(left->val != right->val)
+            return false;
+        
+        return isSymmertrical(left->left, right->right) && isSymmertrical(left->right, right->left);
+    }
+
+};
+```
+
+## 21. 包含min函数的栈
+使用辅助栈
+```c++
+class Solution {
+public:
+    stack<int> m_data;
+    stack<int> m_min;
+    void push(int value) {
+        m_data.push(value);
+        if(m_min.empty())
+            m_min.push(value);
+        else if(value < m_min.top())
+            m_min.push(value);
+        else
+            m_min.push(m_min.top());
+    }
+    void pop() {
+        if(!m_data.empty())
+        {
+            m_data.pop();
+            m_min.pop();
+        }
+    }
+    int top() {
+        if(!m_data.empty())
+            return m_data.top();
+    }
+    int min() {
+        if(!m_min.empty())
+            return m_min.top();
+    }
+    
+};
+```
+
+
 
 
 
