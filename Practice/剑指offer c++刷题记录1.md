@@ -163,6 +163,50 @@ public:
 };
 ```
 
+## 26. 二叉搜索树的后续遍历序列
+```c++
+class Solution {
+public:
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        if(sequence.size() < 1)
+            return false;
+        if(sequence.size() < 1)
+            return true;
+
+        int length = sequence.size();
+        return recursion_verify(sequence, 0, length-1);
+    }
+    bool recursion_verify(const vector<int>& sequence, int start, int end_)
+    {
+        cout << start << " " << end_ << endl;
+
+        if(end_-start <= 1)
+            return true;
+
+        int root = sequence[end_];
+        int pivot = start;
+        for(int i = start; i < end_; ++i)
+            if(sequence[i] < root)
+            {
+                pivot = i+1;
+                continue;
+            }
+            else
+            {
+                pivot = i;
+                break;
+            }
+        pivot -= 1;
+        cout << pivot << endl;
+        for(int i = pivot+1; i < end_; ++i)
+            if(sequence[i] < root)
+                return false;
+
+        return recursion_verify(sequence, start, pivot) && recursion_verify(sequence, pivot+1, end_-1);
+    }
+};
+```
+
 
 
 
