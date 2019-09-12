@@ -62,10 +62,114 @@ public:
 };
 ```
 
+## 24. 把二叉树分层打印成多行
+方法：引入计数变量，通过计数控制每层打印的数字
+```c++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+        vector<vector<int> > Print(TreeNode* pRoot) {
+            vector<vector<int>> res;
+            queue<TreeNode*> q1;
+            
+            if(pRoot != nullptr)
+            {
+                q1.push(pRoot);
+                while(!q1.empty())
+                {
+                    int i = 0, size = q1.size();
+                    vector<int> one_res;
+                    while(i < size)
+                    {
+                        TreeNode* tmp = q1.front();
+                        q1.pop();
+                        one_res.push_back(tmp->val);
+                        if(tmp->left)
+                            q1.push(tmp->left);
+                        if(tmp->right)
+                            q1.push(tmp->right);
+                        ++i;
+                    }
+                    res.push_back(one_res);
+                }
+             }
+            return res;
+        }
+    
+};
+```
+
+## 25. 之字形打印二叉树
+方法：利用两个辅助栈进行打印，同时利用一个变量根据奇数偶数情况控制子节点入栈顺序
+```c++
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    vector<vector<int> > Print(TreeNode* pRoot) {
+        vector<vector<int> > res;
+        if(pRoot != nullptr)
+        {
+            stack<TreeNode*> s1;
+            int i = 0;
+            s1.push(pRoot);
+            
+            while(!s1.empty())
+            {
+                stack<TreeNode*> s2;
+                vector<int> one_res;
+                while(!s1.empty())
+                {
+                    TreeNode* tmp = s1.top();
+                    s1.pop();
+
+                    one_res.push_back(tmp->val);
+                    if(i%2 == 1)
+                    {
+                        if(tmp->right) s2.push(tmp->right);
+                        if(tmp->left) s2.push(tmp->left);
+                    }
+                    else
+                    {
+                        if(tmp->left) s2.push(tmp->left);
+                        if(tmp->right) s2.push(tmp->right);
+                    }
+                }
+                res.push_back(one_res);
+                s1.swap(s2);
+                ++i;
+            }
+        }
+        return res;
+    }
+    
+};
+```
 
 
 
-## 23.链表中环节点的检测
+
+
+
+
+## 44.链表中环节点的检测
 ```c++
 /**
  * Definition for singly-linked list.
