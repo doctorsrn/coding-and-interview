@@ -209,7 +209,65 @@ public:
 
 
 ## 27. 二叉树中和为某一值的路径
+一下代码在[AcWing](https://www.acwing.com/problem/content/45/)可以通过。在牛客网无法通过。
+```c++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
+        vector<vector<int>> paths;
+        if(root == nullptr)
+            return paths;
+        //vector<vector<int>> paths;
+        vector<int> one_path;
+        one_path.push_back(root->val);
+        int sum = root->val;
+        recursion_find_path(paths, one_path, root, expectNumber, sum);
+        
+        return paths;
+    }
+    int recursion_find_path(vector<vector<int>>& paths, vector<int>& one_path, TreeNode* root, int expectN, int &sum)
+    {
+        if(root->left == nullptr && root->right == nullptr && expectN == sum)
+        {
+            paths.push_back(one_path);
+            return 1;
+        }
+        //sum += root->val;
+        //one_path.push_back(root->val);
+        
+        if(root->left != nullptr)
+        {
+            one_path.push_back(root->left->val);
+            sum += root->left->val;
+            recursion_find_path(paths, one_path, root->left, expectN, sum);
+            
+            sum -= root->left->val;
+            one_path.pop_back();
+        }
+        if(root->right != nullptr)
+        {
+            one_path.push_back(root->right->val);
+            sum += root->right->val;
+            recursion_find_path(paths, one_path, root->right, expectN, sum);
+            
+            sum -= root->right->val;
+            one_path.pop_back();
+        }
+        
+    }
+};
+```
 
+## 28. 复杂链表的复制
 
 
 
