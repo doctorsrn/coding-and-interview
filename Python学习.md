@@ -32,9 +32,10 @@ import functools
 ## 4. Python functools cmp_to_key操作
 在使用sorted函数时，可以自定义key，但是自定义cmp函数就无法直接传入，这时可以使用`cmp_to_key`，将自定义的cmp函数转换为key，传入sorted函数中进行排序。
 
-## 4. Python 优先级队列
+## 5. Python 优先级队列
 https://www.cnblogs.com/kumata/p/9201571.html
 原始优先级队列：`import heapq`
 基于heapq的线程安全优先级队列：`from queue import PriorityQueue`
 常用函数：`heapq.heappush(h, num)和heapq.heapify(nums),heapq.heappop（堆）`
 Python heapq默认是小顶堆，可以将push(e)改为push(-e)，pop(e)为-pop(e)，利用这个trick得到大顶堆。
+
