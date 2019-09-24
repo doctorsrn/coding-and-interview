@@ -54,5 +54,44 @@ Python heapq默认是小顶堆，可以将push(e)改为push(-e)，pop(e)为-pop(
    ```
 3. python的双端队列：`from collections import deque`
 4. python的堆（小顶堆）：`import heapq`，可以基于`heapq`实现优先级队列，如果要用于多线程则需要增加适当的锁和信号量机制
-5. 
+5. 实现字典中的键映射多个值：
+   + value部分可以使用列表、集合或者其他容器
+   + 使用`defaultdict`容器：`from collections import defaultdict`，在初始化字典时可以更简洁
 
+6. 实现字典在迭代或序列化时元素是顺序的：`from collections import OrderedDict`
+7. 求字典中value的最大最小值及对应的key，使用zip函数实现:
+   ```python
+   prices = {'ACME': 45.23,'AAPL': 612.78,'IBM': 205.55,'HPQ': 37.20,'FB': 10.75}
+   min_price = min(zip(prices.values(), prices.keys())) # min_price is (10.75, 'FB')
+   max_price = max(zip(prices.values(), prices.keys())) # max_price is (612.78, 'AAPL')
+   ```
+8. 序列中出现次数最多的元素：`from collections import Counter`
+9. 通过某个关键字或多个关键字对字典列表进行排序`from operator import itemgetter`或者lambda表达式实现，但是前者速度更快一些
+10. 过滤序列元素，通常可以使用列表推导，但是数据量很大时就会大量占用内存，这时候可以使用生成器表达式：
+    ```python
+    mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+    [n for n in mylist if n > 0]  # 列表推导
+    pos = (n for n in mylist if n > 0) # 生成器表达式
+    ```
+    如果过滤规则比较复杂，则可以使用`filter`函数。
+11. 获取一个字典的子集：使用字典推导
+12. 映射名称到序列元素，使序列元素的可读性更强，使用了python的工厂方法：`from collections import namedtuple`
+13. 生成器比列表推导的效率更高
+    ```python
+    nums = [1, 2, 3, 4, 5]
+    s = sum([x * x for x in nums]) # 列表推导，会先创建一个临时列表
+    s = sum((x * x for x in nums)) # 显示的传递一个生成器表达式对象
+    s = sum(x * x for x in nums) # 更加优雅的实现方式，省略了括号
+    ```
+14. 合并多个字典或映射：
+    + `from collections import ChainMap`不产生新字典，只是逻辑上合为一个字典，且原字典改变后合并字典也会改变
+    + 使用`update()`方法，合并后生成一个独立的新字典
+
+
+## 第二章：字符串和文本
+
+
+
+
+
+~~End of file~~
