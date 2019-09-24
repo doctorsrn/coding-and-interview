@@ -39,3 +39,20 @@ https://www.cnblogs.com/kumata/p/9201571.html
 常用函数：`heapq.heappush(h, num)和heapq.heapify(nums),heapq.heappop（堆）`
 Python heapq默认是小顶堆，可以将push(e)改为push(-e)，pop(e)为-pop(e)，利用这个trick得到大顶堆。
 
+
+# 《Python Cookbook》第三版
+## 第一章：数据结构和算法
+1. 可迭代对象均可解压赋值给多个变量，部分解压可用`_`占位。
+   ```python
+   data=[1,2,4]
+   _, a, b = data
+   ```
+2. `*`号表达式可以在解压时得到多个值，也可以配合`_`使用
+   ```python
+   data = [10,1,2,4,5,3]
+   head, *body, tail = data  # body = [1,2,4,5]
+   ```
+3. python的双端队列：`from collections import deque`
+4. python的堆（小顶堆）：`import heapq`，可以基于`heapq`实现优先级队列，如果要用于多线程则需要增加适当的锁和信号量机制
+5. 
+
